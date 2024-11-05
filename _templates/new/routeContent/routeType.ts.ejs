@@ -1,0 +1,16 @@
+---
+to: <%= type_path %>/<%= h.changeCase.pascal(route_type) %>Route.ts
+---
+import { Controller, Responder } from "types/api";
+import { <%= h.changeCase.pascal(route_type) %>Endpoint } from "<%= common_package %>";
+import { ParamSchema } from "express-validator";
+
+type ReqBody = <%= h.changeCase.pascal(route_type) %>Endpoint["reqBody"];
+type Res = <%= h.changeCase.pascal(route_type) %>Endpoint["res"];
+type Params = <%= h.changeCase.pascal(route_type) %>Endpoint["reqParams"];
+
+export type <%= h.changeCase.pascal(route_type) %>Route = {
+  Controller: Controller<ReqBody, Params>;
+  Responder: Responder<Res>;
+  Schema: Record<keyof ReqBody, ParamSchema>;
+};

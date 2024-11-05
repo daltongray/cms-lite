@@ -1,0 +1,18 @@
+---
+to: <%= common_type_dir %>/<%= h.changeCase.pascal(route_type) %>Endpoint.ts
+---
+import { Endpoint } from "types";
+import { PROTOCOL } from "keys";
+
+type ReqBody = <%= body_type_object %>;
+
+type Params = <%= param_type_object %>;
+
+type Res = <%= response_type %>;
+
+export type <%= h.changeCase.pascal(route_type) %>Endpoint = Endpoint<ReqBody, Params, Res>;
+
+export const <%= h.changeCase.camel(route_type) %>Endpoint = {
+  protocol:  PROTOCOL.<%= protocol %>,
+  url: (<%= param_type_destructure %>) => `/<%= url_return %>`,
+};

@@ -1,0 +1,7 @@
+---
+to: <%= common_type_dir %>/index.ts
+inject: true
+after: hygen_import_start
+skip_if: <%= h.changeCase.pascal(route_type) %>Endpoint
+---
+export * from "./<%= h.changeCase.pascal(route_type) %>Endpoint";

@@ -1,0 +1,33 @@
+{
+  "name": "change-my-story",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "workspaces": [
+    "00-services/*",
+    "01-packages/*",
+    "02-goods/*",
+    "03-backends/*",
+    "04-frontends/*"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-json": "^3.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-sort-exports": "^0.8.0",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
+    "eslint-plugin-sort-keys-fix": "^1.1.2",
+    "inquirer": "^9.2.12",
+    "prettier": "2.7.1",
+    "typescript": "^5.0.2"
+  }
+}

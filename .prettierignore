@@ -1,0 +1,7 @@
+# We're only applying prettier to package / app src directories.
+
+*
+!src/*/*/src
+**/_templates
+
+

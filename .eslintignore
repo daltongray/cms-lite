@@ -1,0 +1,5 @@
+# We're only applying lint to workspace src directories.
+
+*
+!*/*/src
+**/_templates

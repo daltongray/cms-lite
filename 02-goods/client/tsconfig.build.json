@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.build.json",
+
+  "compilerOptions": {
+    "target": "ES6",
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@change-my-story/client-goods/*": ["./src/*"],
+      "@change-my-story/client-goods": ["./src"]
+    }
+  },
+
+  "include": [
+    "src/**/*"
+  ]
+}

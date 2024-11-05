@@ -1,0 +1,32 @@
+---
+to: <%= handler_path %>/handle<%= h.changeCase.pascal(route_type) %>.ts
+---
+import { responder as resUtil } from "utils/api";
+import { <%= h.changeCase.pascal(route_type) %>Route } from "types/routes";
+
+type ControllerType = <%= h.changeCase.pascal(route_type) %>Route["Controller"];
+type ResponderType = <%= h.changeCase.pascal(route_type) %>Route["Responder"];
+
+const respond: ResponderType = resUtil;
+
+
+export const handle<%= h.changeCase.pascal(route_type) %>: ControllerType = async (req, res, next) => {
+    try {
+        const { user } = req.context;
+    <% if (req_params) { %>
+        const { <%= req_params %> } = req.params;
+    <% } %>
+    <% if (req_body) { %>
+        const { <%= req_body %> } = req.body;
+    <% } %>
+
+        /*
+            <%=  handler_notes  %>
+        */
+
+        respond(res, null);
+    } catch (error) {
+        console.error("Unexpected error in handle<%= h.changeCase.pascal(route_type) %>", error)
+        next(error);
+    }
+};

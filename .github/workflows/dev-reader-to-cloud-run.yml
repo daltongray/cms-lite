@@ -1,0 +1,97 @@
+name: Deploy Reader API v1.3 | Change My Story Dev
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '04-frontends/reader/**'
+      - '00-services/docker/reader.Dockerfile'
+      - '.github/workflows/dev-reader-to-cloud-run.yml'
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  IMAGE_PATH: ${{ secrets.DEV_GCP_REGION }}-docker.pkg.dev/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ secrets.DEV_REPOSITORY_NAME }}/reader
+  IMAGE_TAG: latest
+
+jobs:
+  build:
+    # Allow the job to fetch a GitHub ID token
+    permissions:
+      id-token: write
+      contents: read
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.DEV_GCP_SA_CRDENTIALS_KEY }}
+
+#      - id: 'auth'
+#        name: 'Authenticate to Google Cloud'
+#        uses: 'google-github-actions/auth@v1'
+#        with:
+#          token_format: access_token
+#          create_credentials_file: true
+#          workload_identity_provider: ${{ secrets.DEV_GCP_PROVIDER_ID }}
+#          service_account: '${{ secrets.DEV_GCP_SERVICE_ACCOUNT_EMAIL }}'
+
+#      - name: Login to GAR
+#        uses: docker/login-action@v3
+#        with:
+#          registry: '${{ env.DEV_GCP_REGION }}-docker.pkg.dev'
+#          username: oauth2accesstoken
+#          password: ${{ steps.auth.outputs.access_token }}
+
+      - name: Login to GAR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.DEV_GCP_REGION }}-docker.pkg.dev
+          username: _json_key_base64
+          password: ${{ secrets.DEV_GCP_SA_CRDENTIALS_KEY }}
+
+      - name: Build and push the tagged docker image to Google Artifact Registry
+        env:
+          VITE_ROCKET_API_KEY: ${{ secrets.DEV_ROCKET_API_KEY }}
+          VITE_ROCKET_AUTH_DOMAIN: ${{ secrets.DEV_ROCKET_AUTH_DOMAIN }}
+          VITE_ROCKET_PROJECT_ID: ${{ secrets.DEV_ROCKET_PROJECT_ID }}
+          VITE_ROCKET_STORAGE_BUCKET: ${{ secrets.DEV_ROCKET_STORAGE_BUCKET }}
+          VITE_ROCKET_MESSAGING_SENDER_ID: ${{ secrets.DEV_ROCKET_MESSAGING_SENDER_ID }}
+          VITE_ROCKET_APP_ID: ${{ secrets.DEV_ROCKET_APP_ID }}
+          VITE_ACCESS_EMAIL: ${{ secrets.DEV_ACCESS_EMAIL }}
+
+          VITE_AXIOS_LAUNCH_URL: ${{ secrets.DEV_CLOUD_RUN_SERVICE_URL_LAUNCH }}
+
+
+        run: |
+          docker build \
+          --build-arg VITE_ROCKET_API_KEY=$VITE_ROCKET_API_KEY \
+          --build-arg VITE_ROCKET_AUTH_DOMAIN=$VITE_ROCKET_AUTH_DOMAIN \
+          --build-arg VITE_ROCKET_PROJECT_ID=$VITE_ROCKET_PROJECT_ID \
+          --build-arg VITE_ROCKET_STORAGE_BUCKET=$VITE_ROCKET_STORAGE_BUCKET \
+          --build-arg VITE_ROCKET_MESSAGING_SENDER_ID=$VITE_ROCKET_MESSAGING_SENDER_ID \
+          --build-arg VITE_ROCKET_APP_ID=$VITE_ROCKET_APP_ID \
+          --build-arg VITE_ACCESS_EMAIL=$VITE_ACCESS_EMAIL \
+          --build-arg VITE_AXIOS_LAUNCH_URL=$VITE_AXIOS_LAUNCH_URL \
+          . -t $IMAGE_PATH:$IMAGE_TAG -f 00-services/docker/reader.Dockerfile
+          docker push $IMAGE_PATH
+
+      - name: Deploy to existing Cloud Run service
+        run: |
+          gcloud run deploy ${{secrets.DEV_CLOUD_RUN_SERVICE_NAME_READER}} \
+            --image $IMAGE_PATH:$IMAGE_TAG \
+            --region ${{ secrets.DEV_GCP_REGION }} \
+            --platform managed \
+            --allow-unauthenticated

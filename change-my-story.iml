@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/02-goods/client/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/02-goods/server/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/03-backends/launch/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/01-packages/common/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/04-frontends/reader/dist" />
+      <excludePattern pattern="terraform.tfstate.backup" />
+      <excludePattern pattern="terraform.tfstate" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

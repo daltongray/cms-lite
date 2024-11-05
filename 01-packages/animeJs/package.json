@@ -1,0 +1,11 @@
+{
+  "name": "@change-my-story/anime",
+  "version": "1.0.0",
+  "description": "Anime beta package.",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "devDependencies": {  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@change-my-story/common",
+  "version": "1.0.0",
+  "description": "Shared code between playwell apps and packages.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rimraf -rf ./dist && rimraf -rf tsconfig.build.tsbuildinfo",
+    "compile": "tsc -p tsconfig.build.json && npm run resolve-alias",
+    "resolve-alias": "tsc-alias -p tsconfig.build.json",
+    "dev": "nodemon --watch src -e ts,json --exec \"npm run compile\"",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "tsc-alias": "^1.7.1",
+    "typescript": "^5.0.2",
+  },
+  "tsc-alias": {
+    "verbose": true
+  }
+}

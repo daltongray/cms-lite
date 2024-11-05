@@ -1,0 +1,7 @@
+---
+to: <%= handler_path %>/index.ts
+inject: true
+after: hygen_import_start
+skip_if: handle<%= h.changeCase.pascal(route_type) %>
+---
+export * from "./handle<%= h.changeCase.pascal(route_type) %>";

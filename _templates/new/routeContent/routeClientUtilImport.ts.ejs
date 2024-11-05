@@ -1,0 +1,8 @@
+---
+to: <%= client_util_path %>
+inject: true
+after: common_import_open
+skip_if: <%= h.changeCase.pascal(route_type) %>Endpoint,
+---
+    <%= h.changeCase.pascal(route_type) %>Endpoint,
+    <%= h.changeCase.camel(route_type) %>Endpoint,

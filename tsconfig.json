@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+
+    "noImplicitAny": false,
+
+    "allowSyntheticDefaultImports": true,
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+
+      "@change-my-story/common": ["01-packages/common/src"],
+      "@change-my-story/common/*": ["01-packages/common/src/*"],
+
+      "@change-my-story/public": ["01-packages/public/src"],
+      "@change-my-story/public/*": ["01-packages/public/src/*"],
+
+      "@change-my-story/component-library": ["01-packages/component-library/src"],
+      "@change-my-story/component-library/*": ["01-packages/component-library/src/*"],
+
+      "@change-my-story/client-goods": ["02-goods/client/src"],
+      "@change-my-story/client-goods/*": ["02-goods/client/src/*"],
+
+      "@change-my-story/server-goods": ["02-goods/server/src"],
+      "@change-my-story/server-goods/*": ["02-goods/server/src/*"],
+
+
+      "@change-my-story/launch": ["03-backends/launch/src"],
+      "@change-my-story/launch/*": ["03-backends/launch/src/*"],
+
+      "@change-my-story/dashboard": ["04-frontends/dashboard/src"],
+      "@change-my-story/dashboard/*": ["04-frontends/dashboard/src/*"],
+
+      "@change-my-story/reader": ["04-frontends/reader/src"],
+      "@change-my-story/reader/*": ["04-frontends/reader/src/*"],
+
+    },
+    "noEmit": true
+  },
+
+  "strict": false,
+
+  "extends": "./tsconfig.build.json"
+}

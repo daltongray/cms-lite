@@ -1,0 +1,7 @@
+---
+to: <%= content_path %>/index.ts
+inject: true
+after: hygen_import_start
+skip_if: <%= h.changeCase.camel(route_type) %>Route
+---
+export * from "./<%= h.changeCase.camel(route_type) %>Route";

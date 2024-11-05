@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "setCors": "gsutil cors set cors.json gs://fir-prototyping-31fc3.appspot.com"
+  }
+}

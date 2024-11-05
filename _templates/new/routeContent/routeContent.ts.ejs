@@ -1,0 +1,20 @@
+---
+to: <%= content_path %>/<%= h.changeCase.camel(route_type) %>Route.ts
+---
+import { checkSchema } from "express-validator";
+import { handle<%= h.changeCase.pascal(route_type) %> } from "controllers";
+import { <%= h.changeCase.camel(route_type) %>Endpoint } from "<%= common_package %>";
+import { Route } from "types/api";
+import { <%= h.changeCase.pascal(route_type) %>Route } from "types/routes";
+import { sessionValidator } from "middleware";
+
+const { protocol, url } = <%= h.changeCase.camel(route_type) %>Endpoint;
+type Schema = <%= h.changeCase.pascal(route_type) %>Route["Schema"];
+
+const schema: Schema = {};
+
+export const <%= h.changeCase.camel(route_type) %>Route: Route = {
+    handlers: [sessionValidator, checkSchema(schema), handle<%= h.changeCase.pascal(route_type) %>],
+    protocol,
+    url: url(<%- param_identifier %>),
+};

@@ -32,7 +32,7 @@ export default defineConfig({
 
         //@ts-expect-error - implicit any is not something I care to support
         server.watcher.on("change", async (eventName, path, stats) => {
-          console.log(eventName, path, stats);
+          // console.log(eventName, path, stats);
 
           if (eventName.includes("vite.config.ts.timestamp")) return;
 
@@ -60,7 +60,7 @@ export default defineConfig({
   },
 
   server: {
-    port: Number(process.env.VITE_PORT) || 3100,
+    port: 4000,
   },
 
   esbuild: false,

@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import BottomAppBar from "components/BottomAppBar";
 import { ResizeHandler } from "components/ResizeHandler";
 
 import { AutoDiv } from "@change-my-story/component-library";
@@ -39,7 +38,6 @@ export const ResponsiveMUILayout = ({
 
       <AutoDiv marginLeft={applyMargin && isDrawerOpen ? 250 : 0}>
         {children}
-        <BottomAppBar />
       </AutoDiv>
     </ThemeProvider>
   );

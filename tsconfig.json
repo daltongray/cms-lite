@@ -37,7 +37,5 @@
     "noEmit": true
   },
 
-  "strict": false,
-
   "extends": "./tsconfig.build.json"
 }
